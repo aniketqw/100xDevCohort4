@@ -1,13 +1,25 @@
-body{
-     background-color: black;
+/* Apply Bebas Neue to headings or the topbar */
+#topbar {
+    font-family: 'Bebas Neue', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
 }
 
-#topbar{
-     background-color: rgb(208, 40, 40);
-
+/* Apply Roboto to the rest of the body */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    line-height: 1.6;
 }
 
-#banner{
-    background-color: #263853; border: 1px solid gray
-
+/* Specific styling for the banner */
+#banner {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
 }
