@@ -1,66 +1,86 @@
-const noteInput = document.getElementById("noteInput");
-const saveButton = document.getElementById("saveButton");
-const notesList = document.getElementById("notesList");
+const { useState, useEffect } = React;
 
-async function loadNotes() {
-  const response = await fetch("/notes");
-  const data = await response.json();
-  renderNotes(data.notes || []);
-}
+function NotesApp() {
+  const [notes, setNotes] = useState([]);
+  const [noteText, setNoteText] = useState("");
 
-function renderNotes(notes) {
-  notesList.innerHTML = "";
+  useEffect(() => {
+    loadNotes();
+  }, []);
 
-  if (!notes.length) {
-    const emptyCard = document.createElement("div");
-    emptyCard.className = "note-card empty";
-    emptyCard.textContent = "No notes yet. Add one above.";
-    notesList.appendChild(emptyCard);
-    return;
+  async function loadNotes() {
+    const response = await fetch("/notes");
+    const data = await response.json();
+    setNotes(data.notes || []);
   }
 
-  notes.forEach((note) => {
-    const card = document.createElement("div");
-    card.className = "note-card";
+  async function saveNote() {
+    const trimmed = noteText.trim();
+    if (!trimmed) {
+      return;
+    }
 
-    const timestamp = note.createdAt
-      ? new Date(note.createdAt).toLocaleString()
-      : "Unknown time";
+    await fetch("/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ note: trimmed }),
+    });
 
-    card.innerHTML = `
-      <div class="note-text">${note.text}</div>
-      <div class="note-time">${timestamp}</div>
-    `;
-
-    notesList.appendChild(card);
-  });
-}
-
-async function saveNote() {
-  const note = noteInput.value.trim();
-  if (!note) {
-    noteInput.focus();
-    return;
+    setNoteText("");
+    loadNotes();
   }
 
-  await fetch("/notes", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ note }),
-  });
+  return (
+    <div className="app-shell">
+      <header>
+        <h1>Notes</h1>
+        <p>Write a note and save it to see it appear below.</p>
+      </header>
 
-  noteInput.value = "";
-  loadNotes();
+      <section className="input-panel">
+        <textarea
+          value={noteText}
+          onChange={(event) => setNoteText(event.target.value)}
+          rows={4}
+          placeholder="Type your note here..."
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && !event.shiftKey) {
+              event.preventDefault();
+              saveNote();
+            }
+          }}
+        />
+        <button type="button" onClick={saveNote}>
+          Create new note
+        </button>
+      </section>
+
+      <section className="notes-panel">
+        <h2>Saved notes</h2>
+
+        <div className="notes-list">
+          {notes.length === 0 ? (
+            <div className="note-card empty">No notes yet. Add one above.</div>
+          ) : (
+            notes.map((note, index) => {
+              const timestamp = note.createdAt
+                ? new Date(note.createdAt).toLocaleString()
+                : "Unknown time";
+
+              return (
+                <div key={index} className="note-card">
+                  <div className="note-text">{note.text}</div>
+                  <div className="note-time">{timestamp}</div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </section>
+    </div>
+  );
 }
 
-saveButton.addEventListener("click", saveNote);
-noteInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" && !event.shiftKey) {
-    event.preventDefault();
-    saveNote();
-  }
-});
-
-loadNotes();
+ReactDOM.render(<NotesApp />, document.getElementById("root"));

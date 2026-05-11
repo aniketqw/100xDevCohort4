@@ -7,22 +7,11 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app-shell">
-    <header>
-      <h1>Notes</h1>
-      <p>Write a note and save it to see it appear below.</p>
-    </header>
+  <div id="root"></div>
 
-    <section class="input-panel">
-      <textarea id="noteInput" rows="4" placeholder="Type your note here..."></textarea>
-      <button id="saveButton">Create new note</button>
-    </section>
-
-    <section class="notes-panel">
-      <h2>Saved notes</h2>
-      <div id="notesList" class="notes-list"></div>
-    </section>
-  </div>
-  <script src="script.js"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel" src="script.js"></script>
 </body>
 </html>
