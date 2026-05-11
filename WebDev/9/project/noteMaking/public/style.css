@@ -1,0 +1,97 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(180deg, #141414, #222);
+  color: #eee;
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+header p {
+  margin: 8px auto 0;
+  max-width: 560px;
+  color: #ccc;
+}
+
+.input-panel,
+.notes-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 18px;
+  backdrop-filter: blur(10px);
+}
+
+.input-panel {
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #f6f6f6;
+  resize: vertical;
+  font-size: 1rem;
+  min-height: 120px;
+}
+
+button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 999px;
+  background: #4f9dff;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #3f86e0;
+}
+
+.notes-panel h2 {
+  margin-top: 0;
+}
+
+.notes-list {
+  display: grid;
+  gap: 12px;
+}
+
+.note-card {
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  min-height: 72px;
+  white-space: pre-wrap;
+}
+
+.note-card.empty {
+  color: #999;
+  text-align: center;
+}

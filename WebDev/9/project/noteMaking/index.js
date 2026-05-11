@@ -1,12 +1,15 @@
 const express = require("express");
+const path = require("path");
 
-const app =express();
+const app = express();
+const notes = [];// - eventually we will learn about databases
 
-const notes=[];// this is bad 
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
-//POST CREATE A NOTES - eventually we will learn about databases
+//POST CREATE A NOTES 
 app.post("/notes", function(req,res){
-    const notes = req.body.note;
+    const note = req.body.note;
     notes.push(note);
 
     res.json({
@@ -23,4 +26,6 @@ app.get("/notes", function(req,res){
         })
 })
 
-app.listen(3000);
+app.listen(3000, function () {
+  console.log("Notes app running at http://localhost:3000");
+});

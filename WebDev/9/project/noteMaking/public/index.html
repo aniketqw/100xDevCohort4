@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <h1>Notes</h1>
+      <p>Write a note and save it to see it appear below.</p>
+    </header>
+
+    <section class="input-panel">
+      <textarea id="noteInput" rows="4" placeholder="Type your note here..."></textarea>
+      <button id="saveButton">Create new note</button>
+    </section>
+
+    <section class="notes-panel">
+      <h2>Saved notes</h2>
+      <div id="notesList" class="notes-list"></div>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
