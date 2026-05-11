@@ -10,25 +10,25 @@
                 Loading ....
             </div>
             <div>
-                <input types="text" id="noteText"/>
+                <input type="text" id="noteText"/>
                 <button onclick="addTodo()"> Create new notes</button>
             </div>
         </div>
         <script>        
             async function addTodo(){
+                const noteText = document.getElementById("noteText").value;
                 await axios.post("http://localhost:3000/notes",{
-                    note:document.getElementById("noteText").value
+                    note: noteText
                 });
                
-                // show the todo on  the frontend
+                // show the todo on the frontend
                 const newNote=document.createElement("div");
+                newNote.textContent = noteText;
                 newNote.setAttribute("style","border: 2px solid black; padding: 10px;")
-                document.getElementById("notes").appendChild(newNote) ;
-
+                document.getElementById("notes").appendChild(newNote);
 
                 //make the input box empty again 
-                document.getElementById("noteText").value="";
-
+                document.getElementById("noteText").value = "";
 
             }
             async function getTodos(){
