@@ -91,6 +91,15 @@ button:hover {
   white-space: pre-wrap;
 }
 
+.note-text {
+  margin-bottom: 10px;
+}
+
+.note-time {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
 .note-card.empty {
   color: #999;
   text-align: center;

@@ -22,7 +22,16 @@ function renderNotes(notes) {
   notes.forEach((note) => {
     const card = document.createElement("div");
     card.className = "note-card";
-    card.textContent = note;
+
+    const timestamp = note.createdAt
+      ? new Date(note.createdAt).toLocaleString()
+      : "Unknown time";
+
+    card.innerHTML = `
+      <div class="note-text">${note.text}</div>
+      <div class="note-time">${timestamp}</div>
+    `;
+
     notesList.appendChild(card);
   });
 }
