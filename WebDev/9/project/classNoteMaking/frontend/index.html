@@ -1,4 +1,8 @@
 <html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    </head>
     <body>
         <div style ="display: flex; justify-content:space-between;padding:0px 100px;">
             <!-- horizontal padding of 100 pixel  -->
@@ -10,6 +14,18 @@
                 <button> Create new notes</button>
             </div>
         </div>
-        ,<script></script>
+        <script>
+            async function getTodos(){
+                // alert("hi");
+                // const response =await fetch ("http://localhost:3000/notes")
+                // const json=await response.json()
+                // console.log(json.notes);
+
+                // axios we bring this dependency to the frontend
+                const response=await axios.get("http://localhost:3000/notes");
+                console.log(response.data.notes);
+            }
+            getTodos();// function is called on load 
+        </script>
     </body>
 </html>
