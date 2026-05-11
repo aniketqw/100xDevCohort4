@@ -6,15 +6,31 @@
     <body>
         <div style ="display: flex; justify-content:space-between;padding:0px 100px;">
             <!-- horizontal padding of 100 pixel  -->
-            <div>
+            <div id="notes">
                 Loading ....
             </div>
             <div>
-                <input types="text"/>
-                <button> Create new notes</button>
+                <input types="text" id="noteText"/>
+                <button onclick="addTodo()"> Create new notes</button>
             </div>
         </div>
-        <script>
+        <script>        
+            async function addTodo(){
+                await axios.post("http://localhost:3000/notes",{
+                    note:document.getElementById("noteText").value
+                });
+               
+                // show the todo on  the frontend
+                const newNote=document.createElement("div");
+                newNote.setAttribute("style","border: 2px solid black; padding: 10px;")
+                document.getElementById("notes").appendChild(newNote) ;
+
+
+                //make the input box empty again 
+                document.getElementById("noteText").value="";
+
+
+            }
             async function getTodos(){
                 // alert("hi");
                 // const response =await fetch ("http://localhost:3000/notes")
@@ -23,7 +39,21 @@
 
                 // axios we bring this dependency to the frontend
                 const response=await axios.get("http://localhost:3000/notes");
+                const notes=response.data.notes;// extracting actual notes from the response
                 console.log(response.data.notes);
+
+                //removing loading 
+                document.getElementById("notes").innerHTML="";
+
+                 //populating with fetched notes
+                for(let i=0;i<notes.length;i++)
+                {
+                    const noteNote=document.createElement("div");// created a new div
+                    noteNote.innerHTML=notes[i];//in the new div add the notes which user created
+                    noteNote.setAttribute("style","border: 2px solid black; padding: 10px;")
+                    document.getElementById("notes").appendChild(noteNote) ;
+                }
+
             }
             getTodos();// function is called on load 
         </script>

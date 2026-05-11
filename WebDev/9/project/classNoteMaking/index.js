@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
+app.use(express.json());// req body will be undefined
 const notes = [];// - eventually we will learn about databases
 
 
